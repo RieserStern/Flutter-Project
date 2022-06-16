@@ -1,0 +1,57 @@
+group 'com.jacobbrasil.snapkit'
+version '1.0'
+
+buildscript {
+    ext.kotlin_version = '1.4.32'
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url "https://storage.googleapis.com/snap-kit-build/maven"
+        }
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 30
+
+    defaultConfig {
+        minSdkVersion 19
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+dependencies {
+    implementation([
+            'com.snapchat.kit.sdk:creative:1.13.1',
+            'com.snapchat.kit.sdk:login:1.13.1',
+            'com.snapchat.kit.sdk:bitmoji:1.13.1',
+            'com.snapchat.kit.sdk:core:1.13.1'
+    ])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
+}
